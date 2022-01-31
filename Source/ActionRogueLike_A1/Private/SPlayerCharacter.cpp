@@ -50,6 +50,7 @@ void ASPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	PlayerInputComponent->BindAxis("Turn", this, &ACharacter::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &ACharacter::AddControllerPitchInput);
 
+	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &ASPlayerCharacter::PrimaryAttack);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ASPlayerCharacter::Jump);
 
 }
@@ -76,4 +77,12 @@ void ASPlayerCharacter::Jump()
 	ACharacter::Jump();
 }
 
+void ASPlayerCharacter::PrimaryAttack()
+{
+	//FVector SpawnLocation = GetActorLocation();
+	FVector SpawnLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+	FActorSpawnParameters spawnParams;
+	spawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+	GetWorld()->SpawnActor<AActor>(ProjectileTemplate, SpawnLocation, GetControlRotation(), spawnParams);
+}
 

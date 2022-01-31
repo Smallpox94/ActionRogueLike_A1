@@ -29,7 +29,12 @@ protected:
 
 	void MoveForward(float value);
 	void MoveRight(float value);
+
 	void Jump();
+	void PrimaryAttack();
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ProjectileTemplate;
 
 public:	
 	// Called every frame
