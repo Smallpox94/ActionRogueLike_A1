@@ -8,6 +8,7 @@
 
 class USpringArmComponent;
 class UCameraComponent;
+class USInteractionComponent;
 
 UCLASS()
 class ACTIONROGUELIKE_A1_API ASPlayerCharacter : public ACharacter
@@ -24,6 +25,9 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
 
+	UPROPERTY(EditAnywhere)
+	USInteractionComponent* InteractionComp;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -32,6 +36,7 @@ protected:
 
 	void Jump();
 	void PrimaryAttack();
+	void PrimaryInteract();
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> ProjectileTemplate;
