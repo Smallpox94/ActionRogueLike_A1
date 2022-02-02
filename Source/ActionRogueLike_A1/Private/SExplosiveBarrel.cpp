@@ -19,7 +19,11 @@ ASExplosiveBarrel::ASExplosiveBarrel()
 	RootComponent = MeshComp;
 
 	RadialForceComp = CreateDefaultSubobject<URadialForceComponent>("RadialForceComp");
-	RadialForceComp->ImpulseStrength = 1000000.0f;
+	RadialForceComp->ImpulseStrength = 50000.0f;
+	RadialForceComp->Radius = 750.0f;
+	RadialForceComp->bIgnoreOwningActor = true;
+	RadialForceComp->Falloff = RIF_Linear;
+	RadialForceComp->SetActive(false);
 }
 
 // Called when the game starts or when spawned
@@ -39,12 +43,11 @@ void ASExplosiveBarrel::EndPlay(const EEndPlayReason::Type EndPlayReason)
 void ASExplosiveBarrel::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void ASExplosiveBarrel::OnHitCallback(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	//Detect All things in radius
 	RadialForceComp->FireImpulse();
-	//Destroy();
+	Destroy();
 }
