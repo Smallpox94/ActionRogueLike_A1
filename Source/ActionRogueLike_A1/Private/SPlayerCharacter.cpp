@@ -83,6 +83,13 @@ void ASPlayerCharacter::Jump()
 
 void ASPlayerCharacter::PrimaryAttack()
 {
+	PlayAnimMontage(PrimaryAttackAnimMontage);
+
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &ASPlayerCharacter::PrimaryAttack_TimeElapsed, 0.2f);
+}
+
+void ASPlayerCharacter::PrimaryAttack_TimeElapsed()
+{
 	//FVector SpawnLocation = GetActorLocation();
 	FVector SpawnLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 	FActorSpawnParameters spawnParams;

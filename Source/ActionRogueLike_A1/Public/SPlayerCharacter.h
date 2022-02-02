@@ -28,6 +28,11 @@ protected:
 	UPROPERTY(EditAnywhere)
 	USInteractionComponent* InteractionComp;
 
+	UPROPERTY(EditAnywhere)
+	UAnimMontage* PrimaryAttackAnimMontage;
+
+	FTimerHandle TimerHandle_PrimaryAttack;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -36,6 +41,7 @@ protected:
 
 	void Jump();
 	void PrimaryAttack();
+	void PrimaryAttack_TimeElapsed();
 	void PrimaryInteract();
 
 	UPROPERTY(EditAnywhere)
