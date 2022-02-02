@@ -12,7 +12,7 @@ USInteractionComponent::USInteractionComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
-	Distance = 1000.0f;
+	Distance = 250.0f;
 }
 
 
@@ -45,7 +45,7 @@ void USInteractionComponent::PrimaryInteract()
 	FVector End = EyeLocation + EyeRotation.Vector() * Distance;
 
 	FCollisionShape shape;
-	shape.SetSphere(20.f);
+	shape.SetSphere(30.f);
 
 	TArray<FHitResult> hits;
 	GetWorld()->SweepMultiByObjectType(hits, EyeLocation, End, FQuat::Identity, ObjectQueryParams, shape);

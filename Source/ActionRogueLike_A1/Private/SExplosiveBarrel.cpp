@@ -19,9 +19,10 @@ ASExplosiveBarrel::ASExplosiveBarrel()
 	RootComponent = MeshComp;
 
 	RadialForceComp = CreateDefaultSubobject<URadialForceComponent>("RadialForceComp");
-	RadialForceComp->ImpulseStrength = 50000.0f;
-	RadialForceComp->Radius = 750.0f;
+	RadialForceComp->ImpulseStrength = 2500;
+	RadialForceComp->Radius = 750;
 	RadialForceComp->bIgnoreOwningActor = true;
+	RadialForceComp->bImpulseVelChange = true;
 	RadialForceComp->Falloff = RIF_Linear;
 	RadialForceComp->SetActive(false);
 }
