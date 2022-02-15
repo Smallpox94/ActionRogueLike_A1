@@ -29,6 +29,8 @@ protected:
 	UParticleSystemComponent* EffectComp;
 	UPROPERTY(EditAnywhere)
 	UProjectileMovementComponent* ProjectileMovementComp;
+	UPROPERTY(EditAnywhere)
+	UParticleSystem* HitFXParticleSystem;
 
 public:	
 	// Called every frame

@@ -49,6 +49,6 @@ void ASExplosiveBarrel::Tick(float DeltaTime)
 void ASExplosiveBarrel::OnHitCallback(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
 	//Detect All things in radius
-	RadialForceComp->FireImpulse();
-	Destroy();
+	//RadialForceComp->FireImpulse();
+	//Destroy();
 }

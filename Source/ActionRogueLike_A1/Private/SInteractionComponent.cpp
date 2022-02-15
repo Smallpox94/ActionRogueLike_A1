@@ -3,6 +3,8 @@
 
 #include "SInteractionComponent.h"
 #include "SGameplayInterface.h"
+#include <Camera/CameraComponent.h>
+#include "DrawDebugHelpers.h"
 
 // Sets default values for this component's properties
 USInteractionComponent::USInteractionComponent()
@@ -42,14 +44,18 @@ void USInteractionComponent::PrimaryInteract()
 	FVector EyeLocation;
 	FRotator EyeRotation;
 	GetOwner()->GetActorEyesViewPoint(EyeLocation, EyeRotation);
-	FVector End = EyeLocation + EyeRotation.Vector() * Distance;
+	//FVector End = EyeLocation + EyeRotation.Vector() * Distance;
+
+	FVector Start = Cast<UCameraComponent>(GetOwner()->GetComponentByClass(UCameraComponent::StaticClass()))->GetComponentLocation();
+	Start = EyeLocation;
+	FVector End = GetOwner()->GetInstigatorController()->GetControlRotation().Vector() * 100.0f + EyeLocation;
 
 	FCollisionShape shape;
 	shape.SetSphere(30.f);
 
 	TArray<FHitResult> hits;
-	GetWorld()->SweepMultiByObjectType(hits, EyeLocation, End, FQuat::Identity, ObjectQueryParams, shape);
-
+	GetWorld()->SweepMultiByObjectType(hits, Start, End, FQuat::Identity, ObjectQueryParams, shape);
+	DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 4.0f, 0 ,3.0f);
 	for (FHitResult& hit : hits)
 	{
 		AActor* hitActor = hit.GetActor();

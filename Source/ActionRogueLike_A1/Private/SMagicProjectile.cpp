@@ -7,6 +7,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "DrawDebugHelpers.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 ASMagicProjectile::ASMagicProjectile()
@@ -51,7 +52,19 @@ void ASMagicProjectile::EndPlay(const EEndPlayReason::Type EndPlayReason)
 
 void ASMagicProjectile::OnHitCallback(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	//DrawDebugSphere(GetWorld(), GetActorLocation(), 20.0f, 10.0f, FColor::Green, false, 3.0f);
-	Destroy();
+	if (OtherActor != GetInstigator())
+	{
+		//Add FX at destroy
+		FTransform spawnTransform;
+		spawnTransform.SetLocation(GetActorLocation());
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitFXParticleSystem, spawnTransform);
+		
+		//Add Impulse
+		if (OtherActor->IsRootComponentMovable())
+		{
+			OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, Hit.ImpactPoint);
+		}
+		Destroy();
+	}
 }
 
